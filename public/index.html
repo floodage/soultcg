@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="/assets/favicon_white.png"
+      media="(prefers-color-scheme:dark)"
+    />
+    <link
+      rel="icon"
+      href="/assets/favicon_black.png"
+      media="(prefers-color-scheme:light)"
+    />
+    <link rel="stylesheet" href="styles/boardstyles.css" />
+    <link rel="stylesheet" href="styles/cardstyle.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js" type="text/javascript" defer></script>
+    <title>Soul TCG</title>
+  </head>
+
+  <body id="body">
+    <div id="loading-screen">Loading...</div>
+    <div id="menu">
+      <h1>Soul TCG</h1>
+      <p>Welcome to Soul Trading Card Game</p>
+      <p><a>Read the Rules</a></p>
+      <div>
+        <textarea
+          type="text"
+          id="decklist"
+          name="decklist"
+          class="decklist"
+          style="resize: none"
+        ></textarea>
+        <button onclick="play()">Play</button>
+        <button onclick="openBuilder()">Build Deck</button>
+        <button onclick="getDeck()">Import</button>
+        <button onclick="getRandom()">Random</button>
+      </div>
+    </div>
+    <div class="search-box" id="search-box"></div>
+    <div id="buildmenu">
+      <textarea
+        type="text"
+        id="builder-decklist"
+        name="builder-decklist"
+        class="decklist"
+        style="resize: none"
+      ></textarea>
+      <textarea class="decklist" id="deck-count" style="resize: none">
+      0/30</textarea
+      ><button onclick="play()">Play</button>
+      <input
+        type="checkbox"
+        id="unitCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="unitCheck">Unit</label>
+      <input
+        type="checkbox"
+        id="spellCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="spellCheck">Spell</label>
+      <input
+        type="checkbox"
+        id="auraCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="auraCheck">Aura</label>
+      <input
+        type="checkbox"
+        id="blueCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="blueCheck">Blue</label>
+      <input
+        type="checkbox"
+        id="greenCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="greenCheck">Green</label>
+      <input
+        type="checkbox"
+        id="purpleCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="purpleCheck">Purple</label>
+      <input
+        type="checkbox"
+        id="redCheck"
+        onclick="renderAll()"
+        checked
+      /><label for="redCheck">Red</label>
+    </div>
+    <div id="search-box-all"></div>
+    <div id="fullcard_render"></div>
+    <div id="fullboard">
+      <div id="oppboard">
+        <div class="opp hand">
+          <div id="opphand1" class="opp handcard 1"></div>
+          <div id="opphand2" class="opp handcard 2"></div>
+          <div id="opphand3" class="opp handcard 3"></div>
+          <div id="opphand4" class="opp handcard 4"></div>
+          <div id="opphand5" class="opp handcard 5"></div>
+        </div>
+        <div class="opp camp">
+          <div class="card-container">
+            <div class="opp boardattach 1" id="oppcamp1attach"></div>
+            <div class="opp campcard 1" id="oppcamp1"></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div class="opp boardattach 2" id="oppcamp2attach"></div>
+            <div class="opp campcard 2" id="oppcamp2"></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div class="opp boardattach 3" id="oppcamp3attach"></div>
+            <div class="opp campcard 3" id="oppcamp3"></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div class="opp boardattach 4" id="oppcamp4attach"></div>
+            <div class="opp campcard 4" id="oppcamp4"></div>
+            <input class="marker" />
+          </div>
+        </div>
+        <div class="opp front">
+          <div id="oppdeck" class="opp deck"></div>
+          <div class="card-container">
+            <div class="opp boardattach 0" id="oppfrontattach"></div>
+            <div class="opp frontcard" id="oppfront"></div>
+            <input class="marker" />
+          </div>
+          <div
+            id="oppdiscard"
+            class="opp discard"
+            oncontextmenu="javascript:searchOppDiscard();return false;"
+            ontouchmove="searchOppDiscard()"
+          ></div>
+        </div>
+      </div>
+      <div class="soulscore">
+        <div id="oppscore" class="opp score">
+          <input type="checkbox" class="opp soulpoint" />
+          <input type="checkbox" class="opp soulpoint" />
+          <input type="checkbox" class="opp soulpoint" />
+          <input type="checkbox" class="opp soulpoint" />
+        </div>
+
+        <div id="myscore" class="my score" onclick="givePoints()">
+          <input type="checkbox" class="my soulpoint" />
+          <input type="checkbox" class="my soulpoint" />
+          <input type="checkbox" class="my soulpoint" />
+          <input type="checkbox" class="my soulpoint" />
+        </div>
+      </div>
+      <div id="myboard">
+        <div class="my front">
+          <div
+            class="my discard"
+            id="discard"
+            onclick="discardCard(this.id)"
+            oncontextmenu="javascript:searchDiscard();return false;"
+            ontouchmove="searchDiscard()"
+          ></div>
+          <div class="card-container">
+            <div
+              class="my boardattach 0"
+              id="frontattach"
+              onclick="moveCard(this.id);"
+            ></div>
+            <div
+              class="my frontcard"
+              id="front"
+              onclick="moveCard(this.id);"
+              onmousedown="damageCounter(event,this.id)"
+            ></div>
+            <input id="frontmarker" class="marker" />
+          </div>
+
+          <div
+            class="my deck"
+            id="my-deck"
+            onclick="deckCard(this.id)"
+            oncontextmenu="javascript:searchDeck();return false;"
+            ontouchmove="searchDeck()"
+          ></div>
+        </div>
+        <div class="my camp">
+          <div class="card-container">
+            <div
+              class="my boardattach 1"
+              id="camp1attach"
+              onclick="moveCard(this.id);"
+            ></div>
+            <div
+              class="my campcard 1"
+              id="camp1"
+              onclick="moveCard(this.id);"
+              onmousedown="damageCounter(event,this.id)"
+            ></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div
+              class="my boardattach 2"
+              id="camp2attach"
+              onclick="moveCard(this.id);"
+            ></div>
+            <div
+              class="my campcard 2"
+              id="camp2"
+              onclick="moveCard(this.id);"
+              onmousedown="damageCounter(event,this.id)"
+            ></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div
+              class="my boardattach 3"
+              id="camp3attach"
+              onclick="moveCard(this.id);"
+            ></div>
+            <div
+              class="my campcard 3"
+              id="camp3"
+              onclick="moveCard(this.id);"
+              onmousedown="damageCounter(event,this.id)"
+            ></div>
+            <input class="marker" />
+          </div>
+          <div class="card-container">
+            <div
+              class="my boardattach 4"
+              id="camp4attach"
+              onclick="moveCard(this.id);"
+            ></div>
+            <div
+              class="my campcard 4"
+              id="camp4"
+              onclick="moveCard(this.id);"
+              onmousedown="damageCounter(event,this.id)"
+            ></div>
+            <input class="marker" />
+          </div>
+        </div>
+        <div class="my hand">
+          <div
+            class="my handcard 1"
+            id="hand1"
+            onclick="moveCard(this.id);"
+          ></div>
+          <div
+            class="my handcard 2"
+            id="hand2"
+            onclick="moveCard(this.id);"
+          ></div>
+          <div
+            class="my handcard 3"
+            id="hand3"
+            onclick="moveCard(this.id);"
+          ></div>
+          <div
+            class="my handcard 4"
+            id="hand4"
+            onclick="moveCard(this.id);"
+          ></div>
+          <div
+            class="my handcard 5"
+            id="hand5"
+            onclick="moveCard(this.id);"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

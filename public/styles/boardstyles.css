@@ -1,0 +1,262 @@
+:root {
+  --background-color: silver;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  cursor: grab;
+  background-color: var(--background-color);
+}
+* {
+  box-sizing: border-box;
+}
+
+#gameplay-menu {
+  height: 4vh;
+}
+#loading-screen {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--background-color);
+  position: absolute;
+}
+#menu {
+  height: 48vh;
+  width: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu > div {
+  display: flex;
+  gap: 1vh;
+}
+#buildmenu {
+  height: 4vh;
+  display: none;
+  margin: 1vh;
+}
+
+#buildmenu > input {
+  appearance: none;
+}
+#buildmenu > label {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  height: 4vh;
+  text-align: center;
+  border-radius: 0.4vh;
+  padding: 1vh;
+  cursor: pointer;
+  background: darkgrey;
+  border: grey outset solid 0.5vh;
+  border-radius: 0.4vh;
+}
+
+#buildmenu > label:hover {
+  opacity: 0.9;
+}
+#buildmenu > input:checked + label {
+  background: rgb(99, 99, 99);
+}
+#buildmenu > #blueCheck:checked + label {
+  background: var(--blue-color);
+}
+#buildmenu > #greenCheck:checked + label {
+  background: var(--green-color);
+}
+#buildmenu > #purpleCheck:checked + label {
+  background: var(--purple-color);
+}
+#buildmenu > #redCheck:checked + label {
+  background: var(--red-color);
+}
+#fullboard {
+  width: 50vh;
+}
+
+#search-box,
+#search-box-all {
+  display: none;
+  width: 50vh;
+  min-height: 48vh;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1vh;
+  margin: 1vh;
+}
+
+#fullcard_render {
+  position: fixed;
+  top: -24vh;
+  left: 10vh;
+  justify-content: center;
+  margin-top: 25vh;
+  display: none;
+  z-index: 11;
+}
+
+#oppboard {
+  display: none;
+}
+
+#oppboard,
+#myboard {
+  height: 48vh;
+  border-style: ridge;
+  border-color: darkgray;
+  background-color: silver;
+  border-width: calc(var(--scale) * 1vh);
+}
+
+.hand,
+.camp,
+.front {
+  height: 14vh;
+  display: flex;
+}
+
+.soulscore {
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.score {
+  display: flex;
+
+  flex-direction: row;
+}
+
+.soulpoint {
+  appearance: none;
+  border-radius: calc(var(--scale) * 2vh);
+  height: calc(var(--scale) * 2vh);
+  width: calc(var(--scale) * 2vh);
+  background-color: black;
+  border-width: calc(var(--scale) * 0.1vh);
+  box-shadow: inset 0vh 0vh 0.5vh 0.1vh black;
+  border-style: outset;
+  border-color: silver;
+  border-width: calc(var(--scale) * 0.4vh);
+  pointer-events: none;
+}
+.soulpoint:checked {
+  background-color: silver;
+}
+
+.soulpoint > * {
+  margin-left: -2vh;
+  margin-top: -10vh;
+}
+
+.soulpoint > * > *::before {
+  display: none;
+}
+
+.boardattach {
+  height: 3vh;
+  width: 7.5vh;
+  border-radius: 0.6vh;
+  display: none;
+  margin-left: 4vh;
+}
+.handcard,
+.campcard,
+.frontcard,
+.deck,
+.discard {
+  height: 10.5vh;
+  width: 7.5vh;
+  border-radius: 0.8vh;
+  margin: auto;
+  box-shadow: inset 1vh 1vh 1.7vh -0.3vh rgba(0, 0, 0, 0.21);
+  z-index: 1;
+  position: relative;
+}
+
+.card-container {
+  margin: auto;
+}
+
+.deck {
+  background-image: url(/assets/cardback.png);
+  background-size: cover;
+  color: white;
+  text-align: center;
+  font-size: 1.6vh;
+  line-height: 25vh;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.my.deck {
+  box-shadow: 0vh 0.4vh 0.2vh #000;
+}
+.campcard {
+  margin: auto;
+}
+
+.soulpoint > .minicard > p {
+  display: none;
+}
+
+.marker {
+  width: 7.5vh;
+  background: transparent;
+  border: none;
+
+  color: black;
+}
+
+button {
+  color: white;
+  background-color: darkgrey;
+  border-radius: 0.4vh;
+  padding: 1vh;
+  cursor: pointer;
+}
+
+textarea {
+  background: white;
+  color: black;
+  overflow: hidden;
+  width: 5vh;
+}
+
+.frontcard:has(.Ability),
+.campcard:has(.Ability) {
+  box-shadow: 0px 0px 0.6vh 0.1vh var(--Ability-color);
+}
+
+.my.handcard:has(.entry):hover {
+  box-shadow: 0px 0px 0.6vh 0.2vh var(--entry-color);
+}
+
+.my.handcard:has(.rendered):hover {
+  box-shadow: 0px 0px 0.6vh 0.2vh green;
+}
+/* Opp board */
+
+.opp.deck {
+  box-shadow: 0vh 1.6vh 0.9vh #000;
+}
+
+.opp.handcard > .rendered {
+  display: none;
+}
+
+.opp.handcard:has(.rendered) {
+  background: url(/assets/cardback.png);
+  background-size: cover;
+}

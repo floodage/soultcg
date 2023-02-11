@@ -1,0 +1,430 @@
+:root {
+  --blue-color: #4a5d73;
+  --green-color: #4c733e;
+  --purple-color: #734a69;
+  --red-color: #9c5252;
+
+  --Entry-color: #ffb167;
+  --Ability-color: #ff98e2;
+  --Attack-color: silver;
+
+  --scale: 1;
+}
+/* Coloring */
+
+.card > .Entry {
+  background: var(--Entry-color);
+  border: var(--Entry-color) solid calc(var(--scale) * 0.3vh) !important;
+  border-style: outset !important;
+}
+
+.card > .Ability {
+  background: var(--Ability-color);
+  border: var(--Ability-color) solid calc(var(--scale) * 0.3vh) !important;
+  border-style: outset !important;
+}
+
+.card > .Attack {
+  background: var(--Attack-color);
+  border: var(--Attack-color) solid calc(var(--scale) * 0.3vh) !important;
+  border-style: outset !important;
+}
+
+.card > .Attach {
+  background: var(--Attack-color);
+  border: var(--Attack-color) solid calc(var(--scale) * 0.3vh) !important;
+  border-style: groove !important;
+}
+
+.b {background: #78b2f3 !important;}
+.g {background: #9bf57b !important;}
+.p {background:#f776d6 !important;}
+.r {background: #f17878 !important;}
+.blue,
+.blue > .health {
+  background: var(--blue-color);
+}
+.green,
+.green > .health{
+  background: var(--green-color);
+}
+
+.purple,
+.purple > .health {
+  background: var(--purple-color);
+}
+
+.red,
+.red > .health {
+  background: var(--red-color);
+}
+.renderedCard {
+  display: flex;
+}
+
+/* Regular Card */
+
+.card {
+  position: relative;
+  display: block;
+  border: #000 solid;
+  height: calc(var(--scale) * 44vh);
+  width: calc(var(--scale) * 31.5vh);
+  padding: calc(var(--scale) * 1vh);
+  border-width: calc(var(--scale) * 1.3vh);
+  border-radius: calc(var(--scale) * 1.2vh);
+  box-shadow: inset 0vh 0.6vh 6vh calc(var(--scale) * -0.3vh) rgba(0, 0, 0, 0.5);
+}
+
+.card p {
+  text-shadow: 0vh 0vh 0.2vh rgba(119, 119, 119, 0.33);
+  font-size: calc(var(--scale) * 2vh);
+}
+
+.card .name,
+.card .soulcost,
+.slot1text,
+.slot2text,
+.spelltag,
+.enchantmenttag {
+  border-style: outset;
+  border-color: silver;
+  background-color: silver;
+  border-width: calc(var(--scale) * 0.4vh);
+  box-shadow: inset 1vh 1vh 1.7vh 0vh rgba(0, 0, 0, 0.11);
+}
+
+.card .name {
+  margin-top: calc(var(--scale) * -0.2vh);
+  border-radius: calc(var(--scale) * 0.6vh);
+  padding-left: calc(var(--scale) * 0.3vh);
+  height: calc(var(--scale) * 3vh);
+}
+
+
+.card .health {
+  float: right;
+  text-align: center;
+  border-radius: calc(var(--scale) * 0.6vh);
+  height: calc(var(--scale) * 2.7vh);
+  width: calc(var(--scale) * 2.9vh);
+  margin-top: calc(var(--scale) * -5vh);
+  margin-left: calc(var(--scale) * -0.3vh);
+
+
+  color: white;
+  border-style: outset;
+  border-color: silver;
+  border-width: calc(var(--scale) * 0.4vh);
+  box-shadow: inset 1vh 1vh 1.7vh 0vh rgba(0, 0, 0, 0.11);
+}
+.card .soulwrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: calc(var(--scale) * 4.2vh);
+  margin-left: calc(var(--scale) * 0vh);
+}
+.card .soulcost {
+  float: left;
+  text-align: center;
+  border-radius: calc(var(--scale) * 2vh);
+  height: calc(var(--scale) * 2.2vh);
+  width: calc(var(--scale) * 2.2vh);
+  margin-top: calc(var(--scale) * -1.4vh);
+  background-color: silver;
+  margin-top: calc(var(--scale) * 0.1vh);
+  border-width: calc(var(--scale) * 0.2vh);
+  box-shadow: inset 0vh 0vh 0.5vh 0.1vh black;
+  z-index: 1;
+}
+
+.card .imagebackground {
+  background-size: cover;
+  background-position: center;
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  width: calc(var(--scale) * 26vh);
+  height: calc(var(--scale) * 20.7vh);
+  margin-top: calc(var(--scale) * -2vh);
+  margin-left: calc(var(--scale) * 0.5vh);
+  border-style: outset;
+  border-color: silver;
+  border-width: calc(var(--scale) * 0.3vh);
+  background-color: silver;
+}
+
+.card .slot1, 
+.card .slot2 {
+  border-radius: calc(var(--scale) * 0.2vh);
+  height: calc(var(--scale) * 2vh);
+  width: calc(var(--scale) * 4.5vh);
+  font-size:  calc(var(--scale) * 1.3vh);
+  text-align: center;
+  position: absolute;
+  margin-top: calc(var(--scale) * 19vh);
+
+}
+
+.card .slot2 {
+  margin-top: calc(var(--scale) * 0.4vh);
+
+}
+
+
+.slot1text,
+.slot2text {
+  height: calc(var(--scale) * 8vh);
+  width: calc(var(--scale) * 26vh);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(var(--scale) * 0vh);
+  font-size: calc(var(--scale) * 1.5vh) !important;
+  padding: calc(var(--scale) * 0.4vh);
+  padding-top: calc(var(--scale) * 0.4vh);
+
+  border-radius: calc(var(--scale) * 0.4vh);
+  text-indent: calc(var(--scale) * 3.7vh);
+}
+
+.slot1text {
+  margin-top: calc(var(--scale) * 20.5vh);
+
+}
+
+.cardnumb {
+  position: absolute;
+  top: calc(var(--scale) * 40.3vh);
+  left: calc(var(--scale) * 0.5vh);
+  font-size: calc(var(--scale) * 1vh);
+  color: grey;
+}
+
+/* minion Cards */
+
+.minion .cardnumb {
+  margin-top: calc(var(--scale) * -0.1vh);
+}
+
+
+.minion .slot2,
+.minion .slot2text {
+  display: none;
+}
+.minion .slot1 {
+  margin-top: calc(var(--scale) * 28.4vh);
+
+}
+
+.minion .slot1text {
+  height: calc(var(--scale) * 7vh);
+  margin-top: calc(var(--scale) * 30vh);
+
+}
+
+.minion .imagebackground {
+  height: calc(var(--scale) * 30.2vh);
+
+}
+
+/* Spell Cards */
+
+.spell .health {
+  width: calc(var(--scale) * 6vh);
+  float: right;
+}
+
+.spell .health:before {
+  content: "Spell" !important;
+
+}
+
+.spell .slot1 {
+  margin-top: calc(var(--scale) * -2vh);
+
+  
+}
+.spell .name:before {padding: 0}
+.spell .slot1text {
+  height: calc(var(--scale) * 11.5vh);
+  margin-top: calc(var(--scale) * 25vh);
+  border-radius: calc(var(--scale) * 0.6vh);
+  padding: calc(var(--scale) * 1.2vh);
+  text-indent: 0;
+}
+
+.spell .slot2,
+.spell .slot2text {
+  display: none;
+}
+.spell .imagebackground {
+  height: calc(var(--scale) * 25vh);
+}
+
+/* Fullart & Holo cards */
+
+.fullart {
+  border: silver solid calc(var(--scale) * 1vh);
+  background-size: cover;
+  background-position: center;
+  border-style: groove;
+  z-index: 0;
+}
+
+.foil.fullart::before,
+.foil .imagebackground::before {
+  content: "";
+  background-image: url(/assets/sparkles.gif);
+  position: absolute;
+  margin-top: calc(var(--scale) * -1.1vh);
+  margin-left: calc(var(--scale) * -1.1vh);
+  height: calc(var(--scale) * 41.6vh);
+  width: calc(var(--scale) * 29.1vh);
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+.foil.fullart::before,
+.holo.fullart::before {
+  z-index: -2;
+}
+
+.fullart > .imagebackground {
+  visibility: hidden;
+}
+
+.fullart > .Entry {
+  box-shadow: 0px 0px calc(var(--scale) * 1vh) calc(var(--scale) * 0.3vh)
+    var(--Entry-color);
+}
+
+.fullart > .Ability {
+  box-shadow: 0px 0px calc(var(--scale) * 1vh) calc(var(--scale) * 0.3vh)
+    var(--Ability-color);
+}
+.fullart > .name,
+.fullart > .slot1text,
+.fullart > .attackname {
+  background-color: rgb(0, 0, 0, 0.4);
+  color: white;
+  border-color: rgb(0, 0, 0, 0.1);
+  border-width: calc(var(--scale) * 0.4vh);
+}
+
+/* minicards */
+
+.minicard {
+  display: block;
+  height: 10.5vh;
+  width: 7.5vh;
+  border-radius: 1.5vh;
+}
+.minicard.unit0 > .slot1 {
+  margin-top: -2vh;
+}
+
+.minicard .imagebackground {
+  background-size: cover;
+  background-position: center center;
+  height: 10.5vh;
+  width: 7.5vh;
+  display: block;
+  border: rgb(41, 41, 41) 0.5vh ridge;
+  border-radius: 0.8vh;
+}
+
+.minicard .soulwrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: -9.8vh;
+  margin-left: 0.6vh;
+}
+
+.minicard .soulcost {
+  position: relative;
+  float: left;
+  text-align: center;
+  border-radius: 1vh;
+  height: 1vh;
+  width: 1vh;
+  margin-top: 0.1vh;
+  background: rgb(248, 248, 248);
+  box-shadow: inset 0vh 0vh 0.3vh 0.1vh black;
+  border: groove 1px solid darkgray;
+}
+
+.minicard .health {
+  display: block;
+  position: absolute;
+  text-align: center;
+  border-radius: 0.8vh;
+  height: 2.2vh;
+  width: 2.2vh;
+  margin-left: 5vh;
+  margin-top: 0.4vh;
+  font-size: 1.5vh;
+  border: silver solid 0.1vh;
+  border-style: groove;
+  color: white;
+}
+
+.minicard .slot1 {
+  position: absolute;
+  text-align: center;
+  margin-top: -3vh;
+  font-size: 1.2vh;
+  height: 1.4vh;
+  border-radius: 0.2vh;
+  color: black;
+  box-shadow: 0vh 0vh 0.5vh black;
+}
+
+.minicard .slot1::before {
+  padding: 0.5vh;
+  font-style: none;
+}
+
+.minicard .health::before {
+  position: relative;
+  top: 0.2vh;
+}
+
+.blue.minicard > .tag::before {
+  background: #4a5d73;
+}
+
+.green.minicard > .tag::before {
+  background: #4c733e;
+}
+
+.purple.minicard > .tag::before {
+  background: #734a69;
+}
+
+.red.minicard > .tag::before {
+  background: #9c5252;
+}
+
+.minicard > .Ability {
+  background: var(--Ability-color);
+}
+.minicard > .Entry {
+  background: var(--Entry-color);
+}
+
+.spell > .tag::before {
+  content: "Spell";
+  padding: 0.2vh;
+  height: 1.2vh;
+  font-size: 1vh;
+  border-radius: 0vh 0.6vh 0vh 0.6vh;
+  position: absolute;
+  margin-top: -10vh;
+  margin-left: 4.4vh;
+  box-shadow: inset 1vh 1vh 1.7vh -0.3vh rgb(0 0 0 / 21%);
+  border: silver solid 0.1vh;
+  color: white;
+}
+
